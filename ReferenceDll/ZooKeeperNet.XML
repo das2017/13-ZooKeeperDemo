@@ -1,0 +1,2377 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ZooKeeperNet</name>
+    </assembly>
+    <members>
+        <member name="M:ZooKeeperNet.IClientConnection.AddAuthInfo(System.String,System.Byte[])">
+            <summary>
+            Adds the auth info.
+            </summary>
+            <param name="scheme">The scheme.</param>
+            <param name="auth">The auth.</param>
+        </member>
+        <member name="M:ZooKeeperNet.IClientConnection.SubmitRequest(Org.Apache.Zookeeper.Proto.RequestHeader,Org.Apache.Jute.IRecord,Org.Apache.Jute.IRecord,ZooKeeperNet.ZooKeeper.WatchRegistration)">
+            <summary>
+            Submits the request.
+            </summary>
+            <param name="h">The request header.</param>
+            <param name="request">The request.</param>
+            <param name="response">The response.</param>
+            <param name="watchRegistration">The watch registration.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZooKeeperNet.IClientConnection.QueuePacket(Org.Apache.Zookeeper.Proto.RequestHeader,Org.Apache.Zookeeper.Proto.ReplyHeader,Org.Apache.Jute.IRecord,Org.Apache.Jute.IRecord,System.String,System.String,ZooKeeperNet.ZooKeeper.WatchRegistration,System.Object,System.Object)">
+            <summary>
+            Queues the packet.
+            </summary>
+            <param name="h">The request header.</param>
+            <param name="r">The reply header.</param>
+            <param name="request">The request.</param>
+            <param name="response">The response.</param>
+            <param name="clientPath">The client path.</param>
+            <param name="serverPath">The server path.</param>
+            <param name="watchRegistration">The watch registration.</param>
+            <param name="callback">The callback.</param>
+            <param name="ctx">The context.</param>
+            <returns></returns>
+        </member>
+        <member name="P:ZooKeeperNet.IClientConnection.SessionTimeout">
+            <summary>
+            Gets or sets the session timeout.
+            </summary>
+            <value>The session timeout.</value>
+        </member>
+        <member name="P:ZooKeeperNet.IClientConnection.SessionPassword">
+            <summary>
+            Gets or sets the session password.
+            </summary>
+            <value>The session password.</value>
+        </member>
+        <member name="P:ZooKeeperNet.IClientConnection.SessionId">
+            <summary>
+            Gets or sets the session id.
+            </summary>
+            <value>The session id.</value>
+        </member>
+        <member name="P:ZooKeeperNet.IClientConnection.ChrootPath">
+            <summary>
+            Gets or sets the chroot path.
+            </summary>
+            <value>The chroot path.</value>
+        </member>
+        <member name="M:ZooKeeperNet.ClientConnection.#ctor(System.String,System.TimeSpan,ZooKeeperNet.ZooKeeper,ZooKeeperNet.ZKWatchManager)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZooKeeperNet.ClientConnection"/> class.
+            </summary>
+            <param name="connectionString">The connection string.</param>
+            <param name="sessionTimeout">The session timeout.</param>
+            <param name="zooKeeper">The zoo keeper.</param>
+            <param name="watcher">The watch manager.</param>
+        </member>
+        <member name="M:ZooKeeperNet.ClientConnection.#ctor(System.String,System.TimeSpan,ZooKeeperNet.ZooKeeper,ZooKeeperNet.ZKWatchManager,System.TimeSpan)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZooKeeperNet.ClientConnection"/> class.
+            </summary>
+            <param name="connectionString">The connection string.</param>
+            <param name="sessionTimeout">The session timeout.</param>
+            <param name="zooKeeper">The zoo keeper.</param>
+            <param name="watcher">The watch manager.</param>
+            <param name="connectTimeout">Connection Timeout.</param>
+        </member>
+        <member name="M:ZooKeeperNet.ClientConnection.#ctor(System.String,System.TimeSpan,ZooKeeperNet.ZooKeeper,ZooKeeperNet.ZKWatchManager,System.Int64,System.Byte[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZooKeeperNet.ClientConnection"/> class.
+            </summary>
+            <param name="hosts">The hosts.</param>
+            <param name="sessionTimeout">The session timeout.</param>
+            <param name="zooKeeper">The zoo keeper.</param>
+            <param name="watcher">The watch manager.</param>
+            <param name="sessionId">The session id.</param>
+            <param name="sessionPasswd">The session passwd.</param>
+        </member>
+        <member name="M:ZooKeeperNet.ClientConnection.#ctor(System.String,System.TimeSpan,ZooKeeperNet.ZooKeeper,ZooKeeperNet.ZKWatchManager,System.Int64,System.Byte[],System.TimeSpan)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZooKeeperNet.ClientConnection"/> class.
+            </summary>
+            <param name="hosts">The hosts.</param>
+            <param name="sessionTimeout">The session timeout.</param>
+            <param name="zooKeeper">The zoo keeper.</param>
+            <param name="watcher">The watch manager.</param>
+            <param name="sessionId">The session id.</param>
+            <param name="sessionPasswd">The session passwd.</param>
+            <param name="connectTimeout">Connection Timeout.</param>
+        </member>
+        <member name="M:ZooKeeperNet.ClientConnection.IsAllowedAddressFamily(System.Net.IPAddress)">
+            <summary>
+            Checks to see if the specified address has an allowable address family.
+            </summary>
+            <param name="address">The adress to check.</param>
+            <returns>
+            <c>true</c> if the address is in the allowable address families, otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:ZooKeeperNet.ClientConnection.InternalDispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.ClientConnection.ToString">
+            <summary>
+            Returns a <see cref="!:System.string"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="!:System.string"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:ZooKeeperNet.ClientConnection.MaximumSpin">
+            <summary>
+            Gets a value indicating how many times we should spin during waits.
+            Defaults to 30.
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.ClientConnection.MaximumPacketLength">
+            <summary>
+            Gets a value indicating the maximum packet length allowed.
+            Defaults to 4,194,304 (4MB).
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.ClientConnection.DisableAutoWatchReset">
+            <summary>
+            Gets a value indicating if auto watch reset should be disabled or not.
+            Defaults to <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.ClientConnection.SessionTimeout">
+            <summary>
+            Gets or sets the session timeout.
+            </summary>
+            <value>The session timeout.</value>
+        </member>
+        <member name="P:ZooKeeperNet.ClientConnection.ConnectionTimeout">
+            <summary>
+            Gets or sets the connection timeout.
+            </summary>
+            <value>The connection timeout.</value>
+        </member>
+        <member name="P:ZooKeeperNet.ClientConnection.SessionPassword">
+            <summary>
+            Gets or sets the session password.
+            </summary>
+            <value>The session password.</value>
+        </member>
+        <member name="P:ZooKeeperNet.ClientConnection.SessionId">
+            <summary>
+            Gets or sets the session id.
+            </summary>
+            <value>The session id.</value>
+        </member>
+        <member name="P:ZooKeeperNet.ClientConnection.ChrootPath">
+            <summary>
+            Gets or sets the chroot path.
+            </summary>
+            <value>The chroot path.</value>
+        </member>
+        <member name="F:ZooKeeperNet.ClientConnectionEventConsumer.sessionState">
+            This is really the queued session state until the event
+            thread actually processes the event and hands it to the watcher.
+            But for all intents and purposes this is the state.
+        </member>
+        <member name="M:ZooKeeperNet.ClientConnectionRequestProducer.ReceiveAsynch(System.IAsyncResult)">
+            <summary>
+            process the receiving mechanism in asynchronous manner.
+            Zookeeper server sent data in two main parts
+            part(1) -> contain the length of the part(2)
+            part(2) -> contain the interest information
+            
+            Part(2) may deliver in two or more segments so it is important to 
+            handle this situation properly
+            </summary>
+            <param name="ar">The asynchronous result</param>
+        </member>
+        <member name="M:ZooKeeperNet.ClientConnectionRequestProducer.DoSend(ZooKeeperNet.Packet)">
+            <summary>
+            send packet to server        
+            there's posibility when server closed the socket and client try to send some packet, when this happen it will throw exception
+            the exception is either IOException, NullReferenceException and/or ObjectDisposedException
+            so it is mandatory to catch these excepetions
+            </summary>
+            <param name="packet">The packet to send</param>
+        </member>
+        <member name="M:ZooKeeperNet.IClientWatchManager.Materialize(ZooKeeperNet.KeeperState,ZooKeeperNet.EventType,System.String)">
+            Return a set of watchers that should be notified of the event. The 
+            manager must not notify the watcher(s), however it will update it's 
+            internal structure as if the watches had triggered. The intent being 
+            that the callee is now responsible for notifying the watchers of the 
+            event, possibly at some later time.
+            
+            @param state event state
+            @param type event type
+            @param path event path
+            @return
+        </member>
+        <member name="F:ZooKeeperNet.DataTree.ephemerals">
+            This hashtable lists the paths of the ephemeral nodes of a session.
+        </member>
+        <member name="F:ZooKeeperNet.DataTree.longKeyMap">
+            this is map from longs to acl's. It saves acl's being stored for each
+            datanode.
+        </member>
+        <member name="F:ZooKeeperNet.DataTree.aclKeyMap">
+            this a map from acls to long.
+        </member>
+        <member name="F:ZooKeeperNet.DataTree.aclIndex">
+            these are the number of acls that we have in the datatree
+        </member>
+        <member name="F:ZooKeeperNet.Ids.ANYONE_ID_UNSAFE">
+            This Id represents anyone.
+        </member>
+        <member name="F:ZooKeeperNet.Ids.AUTH_IDS">
+            This Id is only usable to set ACLs. It will get substituted with the
+            Id's the client authenticated with.
+        </member>
+        <member name="F:ZooKeeperNet.Ids.OPEN_ACL_UNSAFE">
+            This is a completely open ACL .
+        </member>
+        <member name="F:ZooKeeperNet.Ids.CREATOR_ALL_ACL">
+            This ACL gives the creators authentication id's all permissions.
+        </member>
+        <member name="F:ZooKeeperNet.Ids.READ_ACL_UNSAFE">
+            This ACL gives the world the ability to read.
+        </member>
+        <member name="T:ZooKeeperNet.IO.BigEndianBitConverter">
+            <summary>
+            Implementation of EndianBitConverter which converts to/from big-endian
+            byte arrays.
+            </summary>
+        </member>
+        <member name="T:ZooKeeperNet.IO.EndianBitConverter">
+            <summary>
+            Equivalent of System.BitConverter, but with either endianness.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.IsLittleEndian">
+            <summary>
+            Indicates the byte order ("endianess") in which data is converted using this class.
+            </summary>
+            <remarks>
+            Different computer architectures store data using different byte orders. "Big-endian"
+            means the most significant byte is on the left end of a word. "Little-endian" means the 
+            most significant byte is on the right end of a word.
+            </remarks>
+            <returns>true if this converter is little-endian, false otherwise.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.DoubleToInt64Bits(System.Double)">
+            <summary>
+            Converts the specified double-precision floating point number to a 
+            64-bit signed integer. Note: the endianness of this converter does not
+            affect the returned value.
+            </summary>
+            <param name="value">The number to convert. </param>
+            <returns>A 64-bit signed integer whose value is equivalent to value.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.Int64BitsToDouble(System.Int64)">
+            <summary>
+            Converts the specified 64-bit signed integer to a double-precision 
+            floating point number. Note: the endianness of this converter does not
+            affect the returned value.
+            </summary>
+            <param name="value">The number to convert. </param>
+            <returns>A double-precision floating point number whose value is equivalent to value.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.SingleToInt32Bits(System.Single)">
+            <summary>
+            Converts the specified single-precision floating point number to a 
+            32-bit signed integer. Note: the endianness of this converter does not
+            affect the returned value.
+            </summary>
+            <param name="value">The number to convert. </param>
+            <returns>A 32-bit signed integer whose value is equivalent to value.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.Int32BitsToSingle(System.Int32)">
+            <summary>
+            Converts the specified 32-bit signed integer to a single-precision floating point 
+            number. Note: the endianness of this converter does not
+            affect the returned value.
+            </summary>
+            <param name="value">The number to convert. </param>
+            <returns>A single-precision floating point number whose value is equivalent to value.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToBoolean(System.Byte[],System.Int32)">
+            <summary>
+            Returns a Boolean value converted from one byte at a specified position in a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <returns>true if the byte at startIndex in value is nonzero; otherwise, false.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToChar(System.Byte[],System.Int32)">
+            <summary>
+            Returns a Unicode character converted from two bytes at a specified position in a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <returns>A character formed by two bytes beginning at startIndex.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToDouble(System.Byte[],System.Int32)">
+            <summary>
+            Returns a double-precision floating point number converted from eight bytes 
+            at a specified position in a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <returns>A double precision floating point number formed by eight bytes beginning at startIndex.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToSingle(System.Byte[],System.Int32)">
+            <summary>
+            Returns a single-precision floating point number converted from four bytes 
+            at a specified position in a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <returns>A single precision floating point number formed by four bytes beginning at startIndex.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToInt16(System.Byte[],System.Int32)">
+            <summary>
+            Returns a 16-bit signed integer converted from two bytes at a specified position in a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <returns>A 16-bit signed integer formed by two bytes beginning at startIndex.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToInt32(System.Byte[],System.Int32)">
+            <summary>
+            Returns a 32-bit signed integer converted from four bytes at a specified position in a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <returns>A 32-bit signed integer formed by four bytes beginning at startIndex.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToInt64(System.Byte[],System.Int32)">
+            <summary>
+            Returns a 64-bit signed integer converted from eight bytes at a specified position in a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <returns>A 64-bit signed integer formed by eight bytes beginning at startIndex.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToUInt16(System.Byte[],System.Int32)">
+            <summary>
+            Returns a 16-bit unsigned integer converted from two bytes at a specified position in a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <returns>A 16-bit unsigned integer formed by two bytes beginning at startIndex.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToUInt32(System.Byte[],System.Int32)">
+            <summary>
+            Returns a 32-bit unsigned integer converted from four bytes at a specified position in a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <returns>A 32-bit unsigned integer formed by four bytes beginning at startIndex.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToUInt64(System.Byte[],System.Int32)">
+            <summary>
+            Returns a 64-bit unsigned integer converted from eight bytes at a specified position in a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <returns>A 64-bit unsigned integer formed by eight bytes beginning at startIndex.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CheckByteArgument(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Checks the given argument for validity.
+            </summary>
+            <param name="value">The byte array passed in</param>
+            <param name="startIndex">The start index passed in</param>
+            <param name="bytesRequired">The number of bytes required</param>
+            <exception cref="T:System.ArgumentNullException">value is a null reference</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            startIndex is less than zero or greater than the length of value minus bytesRequired.
+            </exception>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CheckedFromBytes(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Checks the arguments for validity before calling FromBytes
+            (which can therefore assume the arguments are valid).
+            </summary>
+            <param name="value">The bytes to convert after checking</param>
+            <param name="startIndex">The index of the first byte to convert</param>
+            <param name="bytesToConvert">The number of bytes to convert</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.FromBytes(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Convert the given number of bytes from the given array, from the given start
+            position, into a long, using the bytes as the least significant part of the long.
+            By the time this is called, the arguments have been checked for validity.
+            </summary>
+            <param name="value">The bytes to convert</param>
+            <param name="startIndex">The index of the first byte to convert</param>
+            <param name="bytesToConvert">The number of bytes to use in the conversion</param>
+            <returns>The converted number</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToString(System.Byte[])">
+            <summary>
+            Returns a String converted from the elements of a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <remarks>All the elements of value are converted.</remarks>
+            <returns>
+            A String of hexadecimal pairs separated by hyphens, where each pair 
+            represents the corresponding element in value; for example, "7F-2C-4A".
+            </returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToString(System.Byte[],System.Int32)">
+            <summary>
+            Returns a String converted from the elements of a byte array starting at a specified array position.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <remarks>The elements from array position startIndex to the end of the array are converted.</remarks>
+            <returns>
+            A String of hexadecimal pairs separated by hyphens, where each pair 
+            represents the corresponding element in value; for example, "7F-2C-4A".
+            </returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToString(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Returns a String converted from a specified number of bytes at a specified position in a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <param name="length">The number of bytes to convert.</param>
+            <remarks>The length elements from array position startIndex are converted.</remarks>
+            <returns>
+            A String of hexadecimal pairs separated by hyphens, where each pair 
+            represents the corresponding element in value; for example, "7F-2C-4A".
+            </returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.ToDecimal(System.Byte[],System.Int32)">
+            <summary>
+            Returns a decimal value converted from sixteen bytes 
+            at a specified position in a byte array.
+            </summary>
+            <param name="value">An array of bytes.</param>
+            <param name="startIndex">The starting position within value.</param>
+            <returns>A decimal  formed by sixteen bytes beginning at startIndex.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.GetBytes(System.Decimal)">
+            <summary>
+            Returns the specified decimal value as an array of bytes.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <returns>An array of bytes with length 16.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytes(System.Decimal,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified decimal value into the specified byte array,
+            beginning at the specified index.
+            </summary>
+            <param name="value">A character to convert.</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.GetBytes(System.Int64,System.Int32)">
+            <summary>
+            Returns an array with the given number of bytes formed
+            from the least significant bytes of the specified value.
+            This is used to implement the other GetBytes methods.
+            </summary>
+            <param name="value">The value to get bytes for</param>
+            <param name="bytes">The number of significant bytes to return</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.GetBytes(System.Boolean)">
+            <summary>
+            Returns the specified Boolean value as an array of bytes.
+            </summary>
+            <param name="value">A Boolean value.</param>
+            <returns>An array of bytes with length 1.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.GetBytes(System.Char)">
+            <summary>
+            Returns the specified Unicode character value as an array of bytes.
+            </summary>
+            <param name="value">A character to convert.</param>
+            <returns>An array of bytes with length 2.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.GetBytes(System.Double)">
+            <summary>
+            Returns the specified double-precision floating point value as an array of bytes.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <returns>An array of bytes with length 8.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.GetBytes(System.Int16)">
+            <summary>
+            Returns the specified 16-bit signed integer value as an array of bytes.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <returns>An array of bytes with length 2.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.GetBytes(System.Int32)">
+            <summary>
+            Returns the specified 32-bit signed integer value as an array of bytes.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <returns>An array of bytes with length 4.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.GetBytes(System.Int64)">
+            <summary>
+            Returns the specified 64-bit signed integer value as an array of bytes.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <returns>An array of bytes with length 8.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.GetBytes(System.Single)">
+            <summary>
+            Returns the specified single-precision floating point value as an array of bytes.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <returns>An array of bytes with length 4.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.GetBytes(System.UInt16)">
+            <summary>
+            Returns the specified 16-bit unsigned integer value as an array of bytes.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <returns>An array of bytes with length 2.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.GetBytes(System.UInt32)">
+            <summary>
+            Returns the specified 32-bit unsigned integer value as an array of bytes.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <returns>An array of bytes with length 4.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.GetBytes(System.UInt64)">
+            <summary>
+            Returns the specified 64-bit unsigned integer value as an array of bytes.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <returns>An array of bytes with length 8.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytes(System.Int64,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Copies the given number of bytes from the least-specific
+            end of the specified value into the specified byte array, beginning
+            at the specified index.
+            This is used to implement the other CopyBytes methods.
+            </summary>
+            <param name="value">The value to copy bytes for</param>
+            <param name="bytes">The number of significant bytes to copy</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytesImpl(System.Int64,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Copies the given number of bytes from the least-specific
+            end of the specified value into the specified byte array, beginning
+            at the specified index.
+            This must be implemented in concrete derived classes, but the implementation
+            may assume that the value will fit into the buffer.
+            </summary>
+            <param name="value">The value to copy bytes for</param>
+            <param name="bytes">The number of significant bytes to copy</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytes(System.Boolean,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified Boolean value into the specified byte array,
+            beginning at the specified index.
+            </summary>
+            <param name="value">A Boolean value.</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytes(System.Char,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified Unicode character value into the specified byte array,
+            beginning at the specified index.
+            </summary>
+            <param name="value">A character to convert.</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytes(System.Double,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified double-precision floating point value into the specified byte array,
+            beginning at the specified index.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytes(System.Int16,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified 16-bit signed integer value into the specified byte array,
+            beginning at the specified index.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytes(System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified 32-bit signed integer value into the specified byte array,
+            beginning at the specified index.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytes(System.Int64,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified 64-bit signed integer value into the specified byte array,
+            beginning at the specified index.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytes(System.Single,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified single-precision floating point value into the specified byte array,
+            beginning at the specified index.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytes(System.UInt16,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified 16-bit unsigned integer value into the specified byte array,
+            beginning at the specified index.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytes(System.UInt32,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified 32-bit unsigned integer value into the specified byte array,
+            beginning at the specified index.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.CopyBytes(System.UInt64,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified 64-bit unsigned integer value into the specified byte array,
+            beginning at the specified index.
+            </summary>
+            <param name="value">The number to convert.</param>
+            <param name="buffer">The byte array to copy the bytes into</param>
+            <param name="index">The first index into the array to copy the bytes into</param>
+        </member>
+        <member name="P:ZooKeeperNet.IO.EndianBitConverter.Endianness">
+            <summary>
+            Indicates the byte order ("endianess") in which data is converted using this class.
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.IO.EndianBitConverter.Little">
+            <summary>
+            Returns a little-endian bit converter instance. The same instance is
+            always returned.
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.IO.EndianBitConverter.Big">
+            <summary>
+            Returns a big-endian bit converter instance. The same instance is
+            always returned.
+            </summary>
+        </member>
+        <member name="T:ZooKeeperNet.IO.EndianBitConverter.Int32SingleUnion">
+            <summary>
+            Union used solely for the equivalent of DoubleToInt64Bits and vice versa.
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.IO.EndianBitConverter.Int32SingleUnion.i">
+            <summary>
+            Int32 version of the value.
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.IO.EndianBitConverter.Int32SingleUnion.f">
+            <summary>
+            Single version of the value.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.Int32SingleUnion.#ctor(System.Int32)">
+            <summary>
+            Creates an instance representing the given integer.
+            </summary>
+            <param name="i">The integer value of the new instance.</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBitConverter.Int32SingleUnion.#ctor(System.Single)">
+            <summary>
+            Creates an instance representing the given floating point number.
+            </summary>
+            <param name="f">The floating point value of the new instance.</param>
+        </member>
+        <member name="P:ZooKeeperNet.IO.EndianBitConverter.Int32SingleUnion.AsInt32">
+            <summary>
+            Returns the value of the instance as an integer.
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.IO.EndianBitConverter.Int32SingleUnion.AsSingle">
+            <summary>
+            Returns the value of the instance as a floating point number.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IO.BigEndianBitConverter.IsLittleEndian">
+            <summary>
+            Indicates the byte order ("endianess") in which data is converted using this class.
+            </summary>
+            <remarks>
+            Different computer architectures store data using different byte orders. "Big-endian"
+            means the most significant byte is on the left end of a word. "Little-endian" means the 
+            most significant byte is on the right end of a word.
+            </remarks>
+            <returns>true if this converter is little-endian, false otherwise.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.BigEndianBitConverter.CopyBytesImpl(System.Int64,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified number of bytes from value to buffer, starting at index.
+            </summary>
+            <param name="value">The value to copy</param>
+            <param name="bytes">The number of bytes to copy</param>
+            <param name="buffer">The buffer to copy the bytes into</param>
+            <param name="index">The index to start at</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.BigEndianBitConverter.FromBytes(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Returns a value built from the specified number of bytes from the given buffer,
+            starting at index.
+            </summary>
+            <param name="buffer">The data in byte array format</param>
+            <param name="startIndex">The first index to use</param>
+            <param name="bytesToConvert">The number of bytes to use</param>
+            <returns>The value built from the given bytes</returns>
+        </member>
+        <member name="P:ZooKeeperNet.IO.BigEndianBitConverter.Endianness">
+            <summary>
+            Indicates the byte order ("endianess") in which data is converted using this class.
+            </summary>
+        </member>
+        <member name="T:ZooKeeperNet.IO.EndianBinaryReader">
+            <summary>
+            Equivalent of System.IO.BinaryReader, but with either endianness, depending on
+            the EndianBitConverter it is constructed with. No data is buffered in the
+            reader; the client may seek within the stream at will.
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.IO.EndianBinaryReader.disposed">
+            <summary>
+            Whether or not this reader has been disposed yet.
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.IO.EndianBinaryReader.decoder">
+            <summary>
+            Decoder to use for string conversions.
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.IO.EndianBinaryReader.byteBuffer">
+            <summary>
+            Buffer used for temporary storage before conversion into primitives
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.IO.EndianBinaryReader.charBuffer">
+            <summary>
+            Buffer used for temporary storage when reading a single character
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.IO.EndianBinaryReader.minBytesPerChar">
+            <summary>
+            Minimum number of bytes used to encode a character
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.#ctor(ZooKeeperNet.IO.EndianBitConverter,System.IO.Stream)">
+            <summary>
+            Equivalent of System.IO.BinaryWriter, but with either endianness, depending on
+            the EndianBitConverter it is constructed with.
+            </summary>
+            <param name="bitConverter">Converter to use when reading data</param>
+            <param name="stream">Stream to read data from</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.#ctor(ZooKeeperNet.IO.EndianBitConverter,System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Constructs a new binary reader with the given bit converter, reading
+            to the given stream, using the given encoding.
+            </summary>
+            <param name="bitConverter">Converter to use when reading data</param>
+            <param name="stream">Stream to read data from</param>
+            <param name="encoding">Encoding to use when reading character data</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.Close">
+            <summary>
+            Closes the reader, including the underlying stream..
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.Seek(System.Int32,System.IO.SeekOrigin)">
+            <summary>
+            Seeks within the stream.
+            </summary>
+            <param name="offset">Offset to seek to.</param>
+            <param name="origin">Origin of seek operation.</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadByte">
+            <summary>
+            Reads a single byte from the stream.
+            </summary>
+            <returns>The byte read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadSByte">
+            <summary>
+            Reads a single signed byte from the stream.
+            </summary>
+            <returns>The byte read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadBoolean">
+            <summary>
+            Reads a boolean from the stream. 1 byte is read.
+            </summary>
+            <returns>The boolean read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadInt16">
+            <summary>
+            Reads a 16-bit signed integer from the stream, using the bit converter
+            for this reader. 2 bytes are read.
+            </summary>
+            <returns>The 16-bit integer read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadInt32">
+            <summary>
+            Reads a 32-bit signed integer from the stream, using the bit converter
+            for this reader. 4 bytes are read.
+            </summary>
+            <returns>The 32-bit integer read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadInt64">
+            <summary>
+            Reads a 64-bit signed integer from the stream, using the bit converter
+            for this reader. 8 bytes are read.
+            </summary>
+            <returns>The 64-bit integer read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadUInt16">
+            <summary>
+            Reads a 16-bit unsigned integer from the stream, using the bit converter
+            for this reader. 2 bytes are read.
+            </summary>
+            <returns>The 16-bit unsigned integer read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadUInt32">
+            <summary>
+            Reads a 32-bit unsigned integer from the stream, using the bit converter
+            for this reader. 4 bytes are read.
+            </summary>
+            <returns>The 32-bit unsigned integer read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadUInt64">
+            <summary>
+            Reads a 64-bit unsigned integer from the stream, using the bit converter
+            for this reader. 8 bytes are read.
+            </summary>
+            <returns>The 64-bit unsigned integer read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadSingle">
+            <summary>
+            Reads a single-precision floating-point value from the stream, using the bit converter
+            for this reader. 4 bytes are read.
+            </summary>
+            <returns>The floating point value read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadDouble">
+            <summary>
+            Reads a double-precision floating-point value from the stream, using the bit converter
+            for this reader. 8 bytes are read.
+            </summary>
+            <returns>The floating point value read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadDecimal">
+            <summary>
+            Reads a decimal value from the stream, using the bit converter
+            for this reader. 16 bytes are read.
+            </summary>
+            <returns>The decimal value read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.Read">
+            <summary>
+            Reads a single character from the stream, using the character encoding for
+            this reader. If no characters have been fully read by the time the stream ends,
+            -1 is returned.
+            </summary>
+            <returns>The character read, or -1 for end of stream.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.Read(System.Char[],System.Int32,System.Int32)">
+            <summary>
+            Reads the specified number of characters into the given buffer, starting at
+            the given index.
+            </summary>
+            <param name="data">The buffer to copy data into</param>
+            <param name="index">The first index to copy data into</param>
+            <param name="count">The number of characters to read</param>
+            <returns>The number of characters actually read. This will only be less than
+            the requested number of characters if the end of the stream is reached.
+            </returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads the specified number of bytes into the given buffer, starting at
+            the given index.
+            </summary>
+            <param name="buffer">The buffer to copy data into</param>
+            <param name="index">The first index to copy data into</param>
+            <param name="count">The number of bytes to read</param>
+            <returns>The number of bytes actually read. This will only be less than
+            the requested number of bytes if the end of the stream is reached.
+            </returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadBytes(System.Int32)">
+            <summary>
+            Reads the specified number of bytes, returning them in a new byte array.
+            If not enough bytes are available before the end of the stream, this
+            method will return what is available.
+            </summary>
+            <param name="count">The number of bytes to read</param>
+            <returns>The bytes read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadBytesOrThrow(System.Int32)">
+            <summary>
+            Reads the specified number of bytes, returning them in a new byte array.
+            If not enough bytes are available before the end of the stream, this
+            method will throw an IOException.
+            </summary>
+            <param name="count">The number of bytes to read</param>
+            <returns>The bytes read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.Read7BitEncodedInt">
+            <summary>
+            Reads a 7-bit encoded integer from the stream. This is stored with the least significant
+            information first, with 7 bits of information per byte of value, and the top
+            bit as a continuation flag. This method is not affected by the endianness
+            of the bit converter.
+            </summary>
+            <returns>The 7-bit encoded integer read from the stream.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadBigEndian7BitEncodedInt">
+            <summary>
+            Reads a 7-bit encoded integer from the stream. This is stored with the most significant
+            information first, with 7 bits of information per byte of value, and the top
+            bit as a continuation flag. This method is not affected by the endianness
+            of the bit converter.
+            </summary>
+            <returns>The 7-bit encoded integer read from the stream.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadString">
+            <summary>
+            Reads a length-prefixed string from the stream, using the encoding for this reader.
+            A 7-bit encoded integer is first read, which specifies the number of bytes 
+            to read from the stream. These bytes are then converted into a string with
+            the encoding for this reader.
+            </summary>
+            <returns>The string read from the stream.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.CheckDisposed">
+            <summary>
+            Checks whether or not the reader has been disposed, throwing an exception if so.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.ReadInternal(System.Byte[],System.Int32)">
+            <summary>
+            Reads the given number of bytes from the stream, throwing an exception
+            if they can't all be read.
+            </summary>
+            <param name="data">Buffer to read into</param>
+            <param name="size">Number of bytes to read</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.TryReadInternal(System.Byte[],System.Int32)">
+            <summary>
+            Reads the given number of bytes from the stream if possible, returning
+            the number of bytes actually read, which may be less than requested if
+            (and only if) the end of the stream is reached.
+            </summary>
+            <param name="data">Buffer to read into</param>
+            <param name="size">Number of bytes to read</param>
+            <returns>Number of bytes actually read</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryReader.Dispose">
+            <summary>
+            Disposes of the underlying stream.
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.IO.EndianBinaryReader.BitConverter">
+            <summary>
+            The bit converter used to read values from the stream
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.IO.EndianBinaryReader.Encoding">
+            <summary>
+            The encoding used to read strings
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.IO.EndianBinaryReader.BaseStream">
+            <summary>
+            Gets the underlying stream of the EndianBinaryReader.
+            </summary>
+        </member>
+        <member name="T:ZooKeeperNet.IO.EndianBinaryWriter">
+            <summary>
+            Equivalent of System.IO.BinaryWriter, but with either endianness, depending on
+            the EndianBitConverter it is constructed with.
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.IO.EndianBinaryWriter.disposed">
+            <summary>
+            Whether or not this writer has been disposed yet.
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.IO.EndianBinaryWriter.buffer">
+            <summary>
+            Buffer used for temporary storage during conversion from primitives
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.IO.EndianBinaryWriter.charBuffer">
+            <summary>
+            Buffer used for Write(char)
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.#ctor(ZooKeeperNet.IO.EndianBitConverter,System.IO.Stream)">
+            <summary>
+            Constructs a new binary writer with the given bit converter, writing
+            to the given stream, using UTF-8 encoding.
+            </summary>
+            <param name="bitConverter">Converter to use when writing data</param>
+            <param name="stream">Stream to write data to</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.#ctor(ZooKeeperNet.IO.EndianBitConverter,System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Constructs a new binary writer with the given bit converter, writing
+            to the given stream, using the given encoding.
+            </summary>
+            <param name="bitConverter">Converter to use when writing data</param>
+            <param name="stream">Stream to write data to</param>
+            <param name="encoding">Encoding to use when writing character data</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Close">
+            <summary>
+            Closes the writer, including the underlying stream.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Flush">
+            <summary>
+            Flushes the underlying stream.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Seek(System.Int32,System.IO.SeekOrigin)">
+            <summary>
+            Seeks within the stream.
+            </summary>
+            <param name="offset">Offset to seek to.</param>
+            <param name="origin">Origin of seek operation.</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.Boolean)">
+            <summary>
+            Writes a boolean value to the stream. 1 byte is written.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.Int16)">
+            <summary>
+            Writes a 16-bit signed integer to the stream, using the bit converter
+            for this writer. 2 bytes are written.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.Int32)">
+            <summary>
+            Writes a 32-bit signed integer to the stream, using the bit converter
+            for this writer. 4 bytes are written.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.Int64)">
+            <summary>
+            Writes a 64-bit signed integer to the stream, using the bit converter
+            for this writer. 8 bytes are written.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.UInt16)">
+            <summary>
+            Writes a 16-bit unsigned integer to the stream, using the bit converter
+            for this writer. 2 bytes are written.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.UInt32)">
+            <summary>
+            Writes a 32-bit unsigned integer to the stream, using the bit converter
+            for this writer. 4 bytes are written.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.UInt64)">
+            <summary>
+            Writes a 64-bit unsigned integer to the stream, using the bit converter
+            for this writer. 8 bytes are written.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.Single)">
+            <summary>
+            Writes a single-precision floating-point value to the stream, using the bit converter
+            for this writer. 4 bytes are written.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.Double)">
+            <summary>
+            Writes a double-precision floating-point value to the stream, using the bit converter
+            for this writer. 8 bytes are written.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.Decimal)">
+            <summary>
+            Writes a decimal value to the stream, using the bit converter for this writer.
+            16 bytes are written.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.Byte)">
+            <summary>
+            Writes a signed byte to the stream.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.SByte)">
+            <summary>
+            Writes an unsigned byte to the stream.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.Byte[])">
+            <summary>
+            Writes an array of bytes to the stream.
+            </summary>
+            <param name="value">The values to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes a portion of an array of bytes to the stream.
+            </summary>
+            <param name="value">An array containing the bytes to write</param>
+            <param name="offset">The index of the first byte to write within the array</param>
+            <param name="count">The number of bytes to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.Char)">
+            <summary>
+            Writes a single character to the stream, using the encoding for this writer.
+            </summary>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.Char[])">
+            <summary>
+            Writes an array of characters to the stream, using the encoding for this writer.
+            </summary>
+            <param name="value">An array containing the characters to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write(System.String)">
+            <summary>
+            Writes a string to the stream, using the encoding for this writer.
+            </summary>
+            <param name="value">The value to write. Must not be null.</param>
+            <exception cref="T:System.ArgumentNullException">value is null</exception>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Write7BitEncodedInt(System.Int32)">
+            <summary>
+            Writes a 7-bit encoded integer from the stream. This is stored with the least significant
+            information first, with 7 bits of information per byte of value, and the top
+            bit as a continuation flag.
+            </summary>
+            <param name="value">The 7-bit encoded integer to write to the stream</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.CheckDisposed">
+            <summary>
+            Checks whether or not the writer has been disposed, throwing an exception if so.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.WriteInternal(System.Byte[],System.Int32)">
+            <summary>
+            Writes the specified number of bytes from the start of the given byte array,
+            after checking whether or not the writer has been disposed.
+            </summary>
+            <param name="bytes">The array of bytes to write from</param>
+            <param name="length">The number of bytes to write</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.EndianBinaryWriter.Dispose">
+            <summary>
+            Disposes of the underlying stream.
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.IO.EndianBinaryWriter.BitConverter">
+            <summary>
+            The bit converter used to write values to the stream
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.IO.EndianBinaryWriter.Encoding">
+            <summary>
+            The encoding used to write strings
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.IO.EndianBinaryWriter.BaseStream">
+            <summary>
+            Gets the underlying stream of the EndianBinaryWriter.
+            </summary>
+        </member>
+        <member name="T:ZooKeeperNet.IO.Endianness">
+            <summary>
+            Endianness of a converter
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.IO.Endianness.LittleEndian">
+            <summary>
+            Little endian - least significant byte first
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.IO.Endianness.BigEndian">
+            <summary>
+            Big endian - most significant byte first
+            </summary>
+        </member>
+        <member name="T:ZooKeeperNet.IO.LittleEndianBitConverter">
+            <summary>
+            Implementation of EndianBitConverter which converts to/from little-endian
+            byte arrays.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IO.LittleEndianBitConverter.IsLittleEndian">
+            <summary>
+            Indicates the byte order ("endianess") in which data is converted using this class.
+            </summary>
+            <remarks>
+            Different computer architectures store data using different byte orders. "Big-endian"
+            means the most significant byte is on the left end of a word. "Little-endian" means the 
+            most significant byte is on the right end of a word.
+            </remarks>
+            <returns>true if this converter is little-endian, false otherwise.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IO.LittleEndianBitConverter.CopyBytesImpl(System.Int64,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Copies the specified number of bytes from value to buffer, starting at index.
+            </summary>
+            <param name="value">The value to copy</param>
+            <param name="bytes">The number of bytes to copy</param>
+            <param name="buffer">The buffer to copy the bytes into</param>
+            <param name="index">The index to start at</param>
+        </member>
+        <member name="M:ZooKeeperNet.IO.LittleEndianBitConverter.FromBytes(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Returns a value built from the specified number of bytes from the given buffer,
+            starting at index.
+            </summary>
+            <param name="buffer">The data in byte array format</param>
+            <param name="startIndex">The first index to use</param>
+            <param name="bytesToConvert">The number of bytes to use</param>
+            <returns>The value built from the given bytes</returns>
+        </member>
+        <member name="P:ZooKeeperNet.IO.LittleEndianBitConverter.Endianness">
+            <summary>
+            Indicates the byte order ("endianess") in which data is converted using this class.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.AddAuthInfo(System.String,System.Byte[])">
+             <summary>
+             Add the specified scheme:auth information to this connection.
+            
+             This method is NOT thread safe
+             </summary>
+             <param name="scheme">The scheme.</param>
+             <param name="auth">The auth.</param>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.Register(ZooKeeperNet.IWatcher)">
+            <summary>
+            Specify the default watcher for the connection (overrides the one
+            specified during construction).
+            </summary>
+            <param name="watcher">The watcher.</param>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.Create(System.String,System.Byte[],System.Collections.Generic.IEnumerable{Org.Apache.Zookeeper.Data.ACL},ZooKeeperNet.CreateMode)">
+            <summary>
+            Create a node with the given path. The node data will be the given data,
+            and node acl will be the given acl.
+            
+            The flags argument specifies whether the created node will be ephemeral
+            or not.
+            
+            An ephemeral node will be removed by the ZooKeeper automatically when the
+            session associated with the creation of the node expires.
+            
+            The flags argument can also specify to create a sequential node. The
+            actual path name of a sequential node will be the given path plus a
+            suffix "i" where i is the current sequential number of the node. The sequence
+            number is always fixed length of 10 digits, 0 padded. Once
+            such a node is created, the sequential number will be incremented by one.
+            
+            If a node with the same actual path already exists in the ZooKeeper, a
+            KeeperException with error code KeeperException.NodeExists will be
+            thrown. Note that since a different actual path is used for each
+            invocation of creating sequential node with the same path argument, the
+            call will never throw "file exists" KeeperException.
+            
+            If the parent node does not exist in the ZooKeeper, a KeeperException
+            with error code KeeperException.NoNode will be thrown.
+            
+            An ephemeral node cannot have children. If the parent node of the given
+            path is ephemeral, a KeeperException with error code
+            KeeperException.NoChildrenForEphemerals will be thrown.
+            
+            This operation, if successful, will trigger all the watches left on the
+            node of the given path by exists and getData API calls, and the watches
+            left on the parent node by getChildren API calls.
+            
+            If a node is created successfully, the ZooKeeper server will trigger the
+            watches on the path left by exists calls, and the watches on the parent
+            of the node by getChildren calls.
+            
+            The maximum allowable size of the data array is 1 MB (1,048,576 bytes).
+            Arrays larger than this will cause a KeeperExecption to be thrown.
+            </summary>
+            <param name="path">The path for the node.</param>
+            <param name="data">The data for the node.</param>
+            <param name="acl">The acl for the node.</param>
+            <param name="createMode">specifying whether the node to be created is ephemeral and/or sequential.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.Delete(System.String,System.Int32)">
+             <summary>
+             Delete the node with the given path. The call will succeed if such a node
+             exists, and the given version matches the node's version (if the given
+             version is -1, it matches any node's versions).
+            
+             A KeeperException with error code KeeperException.NoNode will be thrown
+             if the nodes does not exist.
+            
+             A KeeperException with error code KeeperException.BadVersion will be
+             thrown if the given version does not match the node's version.
+            
+             A KeeperException with error code KeeperException.NotEmpty will be thrown
+             if the node has children.
+             
+             This operation, if successful, will trigger all the watches on the node
+             of the given path left by exists API calls, and the watches on the parent
+             node left by getChildren API calls.
+             </summary>
+             <param name="path">The path.</param>
+             <param name="version">The version.</param>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.Exists(System.String,ZooKeeperNet.IWatcher)">
+            <summary>
+            Return the stat of the node of the given path. Return null if no such a
+            node exists.
+            
+            If the watch is non-null and the call is successful (no exception is thrown),
+            a watch will be left on the node with the given path. The watch will be
+            triggered by a successful operation that creates/delete the node or sets
+            the data on the node.
+            </summary>
+            <param name="path">The path.</param>
+            <param name="watcher">The watcher.</param>
+            <returns>the stat of the node of the given path; return null if no such a node exists.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.Exists(System.String,System.Boolean)">
+            <summary>
+            Return the stat of the node of the given path. Return null if no such a
+            node exists.
+            
+            If the watch is true and the call is successful (no exception is thrown),
+            a watch will be left on the node with the given path. The watch will be
+            triggered by a successful operation that creates/delete the node or sets
+            the data on the node.
+            @param path
+                           the node path
+            @param watch
+                           whether need to watch this node
+            @return the stat of the node of the given path; return null if no such a
+                    node exists.
+            @throws KeeperException If the server signals an error
+            @throws InterruptedException If the server transaction is interrupted.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.GetData(System.String,ZooKeeperNet.IWatcher,Org.Apache.Zookeeper.Data.Stat)">
+            <summary>
+            Return the data and the stat of the node of the given path.
+            
+            If the watch is non-null and the call is successful (no exception is
+            thrown), a watch will be left on the node with the given path. The watch
+            will be triggered by a successful operation that sets data on the node, or
+            deletes the node.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            @param path the given path
+            @param watcher explicit watcher
+            @param stat the stat of the node
+            @return the data of the node
+            @throws KeeperException If the server signals an error with a non-zero error code
+            @throws InterruptedException If the server transaction is interrupted.
+            @throws IllegalArgumentException if an invalid path is specified
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.GetData(System.String,System.Boolean,Org.Apache.Zookeeper.Data.Stat)">
+            <summary>
+            Return the data and the stat of the node of the given path.
+            
+            If the watch is true and the call is successful (no exception is
+            thrown), a watch will be left on the node with the given path. The watch
+            will be triggered by a successful operation that sets data on the node, or
+            deletes the node.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            @param path the given path
+            @param watch whether need to watch this node
+            @param stat the stat of the node
+            @return the data of the node
+            @throws KeeperException If the server signals an error with a non-zero error code
+            @throws InterruptedException If the server transaction is interrupted.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.SetData(System.String,System.Byte[],System.Int32)">
+             <summary>
+             Set the data for the node of the given path if such a node exists and the
+             given version matches the version of the node (if the given version is
+             -1, it matches any node's versions). Return the stat of the node.
+             
+             This operation, if successful, will trigger all the watches on the node
+             of the given path left by getData calls.
+             
+             A KeeperException with error code KeeperException.NoNode will be thrown
+             if no node with the given path exists.
+             
+             A KeeperException with error code KeeperException.BadVersion will be
+             thrown if the given version does not match the node's version.
+            
+             The maximum allowable size of the data array is 1 MB (1,048,576 bytes).
+             Arrays larger than this will cause a KeeperExecption to be thrown.
+             @param path
+                            the path of the node
+             @param data
+                            the data to set
+             @param version
+                            the expected matching version
+             @return the state of the node
+             @throws InterruptedException If the server transaction is interrupted.
+             @throws KeeperException If the server signals an error with a non-zero error code.
+             @throws IllegalArgumentException if an invalid path is specified
+             </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.GetACL(System.String,Org.Apache.Zookeeper.Data.Stat)">
+            <summary>
+            Return the ACL and stat of the node of the given path.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            @param path
+                           the given path for the node
+            @param stat
+                           the stat of the node will be copied to this parameter.
+            @return the ACL array of the given node.
+            @throws InterruptedException If the server transaction is interrupted.
+            @throws KeeperException If the server signals an error with a non-zero error code.
+            @throws IllegalArgumentException if an invalid path is specified
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.SetACL(System.String,System.Collections.Generic.IEnumerable{Org.Apache.Zookeeper.Data.ACL},System.Int32)">
+            <summary>
+            Set the ACL for the node of the given path if such a node exists and the
+            given version matches the version of the node. Return the stat of the
+            node.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            
+            A KeeperException with error code KeeperException.BadVersion will be
+            thrown if the given version does not match the node's version.
+            @param path
+            @param acl
+            @param version
+            @return the stat of the node.
+            @throws InterruptedException If the server transaction is interrupted.
+            @throws KeeperException If the server signals an error with a non-zero error code.
+            @throws org.apache.zookeeper.KeeperException.InvalidACLException If the acl is invalide.
+            @throws IllegalArgumentException if an invalid path is specified
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.GetChildren(System.String,ZooKeeperNet.IWatcher)">
+            <summary>
+            Return the list of the children of the node of the given path.
+            
+            If the watch is non-null and the call is successful (no exception is thrown),
+            a watch will be left on the node with the given path. The watch willbe
+            triggered by a successful operation that deletes the node of the given
+            path or creates/delete a child under the node.
+            
+            The list of children returned is not sorted and no guarantee is provided
+            as to its natural or lexical order.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            @param path
+            @param watcher explicit watcher
+            @return an unordered array of children of the node with the given path
+            @throws InterruptedException If the server transaction is interrupted.
+            @throws KeeperException If the server signals an error with a non-zero error code.
+            @throws IllegalArgumentException if an invalid path is specified
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.GetChildren(System.String,ZooKeeperNet.IWatcher,Org.Apache.Zookeeper.Data.Stat)">
+            <summary>
+            For the given znode path return the stat and children list.
+            
+            If the watch is non-null and the call is successful (no exception is thrown),
+            a watch will be left on the node with the given path. The watch willbe
+            triggered by a successful operation that deletes the node of the given
+            path or creates/delete a child under the node.
+            
+            The list of children returned is not sorted and no guarantee is provided
+            as to its natural or lexical order.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            @since 3.3.0
+            
+            @param path
+            @param watcher explicit watcher
+            @param stat stat of the znode designated by path
+            @return an unordered array of children of the node with the given path
+            @throws InterruptedException If the server transaction is interrupted.
+            @throws KeeperException If the server signals an error with a non-zero error code.
+            @throws IllegalArgumentException if an invalid path is specified
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.GetChildren(System.String,System.Boolean,Org.Apache.Zookeeper.Data.Stat)">
+            <summary>
+            For the given znode path return the stat and children list.
+            
+            If the watch is true and the call is successful (no exception is thrown),
+            a watch will be left on the node with the given path. The watch willbe
+            triggered by a successful operation that deletes the node of the given
+            path or creates/delete a child under the node.
+            
+            The list of children returned is not sorted and no guarantee is provided
+            as to its natural or lexical order.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            @since 3.3.0
+            
+            @param path
+            @param watch
+            @param stat stat of the znode designated by path
+            @return an unordered array of children of the node with the given path
+            @throws InterruptedException If the server transaction is interrupted.
+            @throws KeeperException If the server signals an error with a non-zero
+             error code.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.Dispose">
+            <summary>
+            Close this client object. Once the client is closed, its session becomes
+            invalid. All the ephemeral nodes in the ZooKeeper server associated with
+            the session will be removed. The watches left on those nodes (and on
+            their parents) will be triggered.
+            </summary>   
+        </member>
+        <member name="M:ZooKeeperNet.IZooKeeper.ToString">
+            <summary>
+            string representation of this ZooKeeper client. Suitable for things
+            like logging.
+            
+            Do NOT count on the format of this string, it may change without
+            warning.
+            
+            @since 3.3.0
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.IZooKeeper.Id">
+            <summary>
+            Unique ID representing the instance of the client
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.IZooKeeper.SessionId">
+            <summary>
+            The session id for this ZooKeeper client instance. The value returned is
+            not valid until the client connects to a server and may change after a
+            re-connect.
+            </summary>
+            <value>The session id.</value>
+        </member>
+        <member name="P:ZooKeeperNet.IZooKeeper.SesionPassword">
+             <summary>
+             The session password for this ZooKeeper client instance. The value
+             returned is not valid until the client connects to a server and may
+              change after a re-connect.
+            
+             This method is NOT thread safe
+             </summary>
+             <value>The sesion password.</value>
+        </member>
+        <member name="P:ZooKeeperNet.IZooKeeper.SessionTimeout">
+            <summary>
+            The negotiated session timeout for this ZooKeeper client instance. The
+            value returned is not valid until the client connects to a server and
+            may change after a re-connect.
+            
+            This method is NOT thread safe
+            </summary>
+            <value>The session timeout.</value>
+        </member>
+        <member name="M:Org.Apache.Jute.BinaryInputArchive.#ctor(ZooKeeperNet.IO.EndianBinaryReader)">
+            Creates a new instance of BinaryInputArchive 
+        </member>
+        <member name="M:Org.Apache.Jute.BinaryOutputArchive.#ctor(ZooKeeperNet.IO.EndianBinaryWriter)">
+            Creates a new instance of BinaryOutputArchive 
+        </member>
+        <member name="M:ZooKeeperNet.KeeperException.Create(ZooKeeperNet.KeeperException.Code,System.String)">
+             All non-specific keeper exceptions should be constructed via
+             this factory method in order to guarantee consistency in error
+             codes and such.  If you know the error code, then you should
+             construct the special purpose exception directly.  That will
+             allow you to have the most specific possible declarations of
+             what exceptions might actually be thrown.
+            
+             @param code The error code.
+             @param path The ZooKeeper path being operated on.
+             @return The specialized exception, presumably to be thrown by
+              the caller.
+        </member>
+        <member name="M:ZooKeeperNet.KeeperException.Create(ZooKeeperNet.KeeperException.Code)">
+             All non-specific keeper exceptions should be constructed via
+             this factory method in order to guarantee consistency in error
+             codes and such.  If you know the error code, then you should
+             construct the special purpose exception directly.  That will
+             allow you to have the most specific possible declarations of
+             what exceptions might actually be thrown.
+            
+             @param code The error code of your new exception.  This will
+             also determine the specific type of the exception that is
+             returned.
+             @return The specialized exception, presumably to be thrown by
+             the caller.
+        </member>
+        <member name="P:ZooKeeperNet.KeeperException.ErrorCode">
+            Read the error Code for this exception
+            @return the error Code for this exception
+        </member>
+        <member name="P:ZooKeeperNet.KeeperException.Path">
+            Read the path for this exception
+            @return the path associated with this error, null if none
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.Code">
+            Codes which represent the various KeeperException
+            types. This enum replaces the deprecated earlier static final int
+            constants. The old, deprecated, values are in "camel case" while the new
+            enum values are in all CAPS.
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.OK">
+            Everything is OK 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.SYSTEMERROR">
+            System and server-side errors.
+            This is never thrown by the server, it shouldn't be used other than
+            to indicate a range. Specifically error codes greater than this
+            value, but lesser than {@link #APIERROR}, are system errors.
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.RUNTIMEINCONSISTENCY">
+            A runtime inconsistency was found 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.DATAINCONSISTENCY">
+            A data inconsistency was found 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.CONNECTIONLOSS">
+            Connection to the server has been lost 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.MARSHALLINGERROR">
+            Error while marshalling or unmarshalling data 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.UNIMPLEMENTED">
+            Operation is unimplemented 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.OPERATIONTIMEOUT">
+            Operation timeout 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.BADARGUMENTS">
+            Invalid arguments 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.APIERROR">
+            API errors.
+            This is never thrown by the server, it shouldn't be used other than
+            to indicate a range. Specifically error codes greater than this
+            value are API errors (while values less than this indicate a
+            {@link #SYSTEMERROR}).
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.NONODE">
+            Node does not exist 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.NOAUTH">
+            Not authenticated 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.BADVERSION">
+            Version conflict 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.NOCHILDRENFOREPHEMERALS">
+            Ephemeral nodes may not have children 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.NODEEXISTS">
+            The node already exists 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.NOTEMPTY">
+            The node has children 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.SESSIONEXPIRED">
+            The session has been expired by the server 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.INVALIDCALLBACK">
+            Invalid callback specified 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.INVALIDACL">
+            Invalid ACL specified 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.AUTHFAILED">
+            Client authentication failed 
+        </member>
+        <member name="F:ZooKeeperNet.KeeperException.Code.SESSIONMOVED">
+            Session moved to another server, so operation is ignored 
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.APIErrorException">
+            @see Code#APIERROR
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.AuthFailedException">
+            @see Code#AUTHFAILED
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.BadArgumentsException">
+            @see Code#BADARGUMENTS
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.BadVersionException">
+            @see Code#BADVERSION
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.ConnectionLossException">
+            @see Code#CONNECTIONLOSS
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.DataInconsistencyException">
+            @see Code#DATAINCONSISTENCY
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.InvalidACLException">
+            @see Code#INVALIDACL
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.InvalidCallbackException">
+            @see Code#INVALIDCALLBACK
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.MarshallingErrorException">
+            @see Code#MARSHALLINGERROR
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.NoAuthException">
+            @see Code#NOAUTH
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.NoChildrenForEphemeralsException">
+            @see Code#NOCHILDRENFOREPHEMERALS
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.NodeExistsException">
+            @see Code#NODEEXISTS
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.NoNodeException">
+            @see Code#NONODE
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.NotEmptyException">
+            @see Code#NOTEMPTY
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.OperationTimeoutException">
+            @see Code#OPERATIONTIMEOUT
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.RuntimeInconsistencyException">
+            @see Code#RUNTIMEINCONSISTENCY
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.SessionExpiredException">
+            @see Code#SESSIONEXPIRED
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.SessionMovedException">
+            @see Code#SESSIONMOVED
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.SystemErrorException">
+            @see Code#SYSTEMERROR
+        </member>
+        <member name="T:ZooKeeperNet.KeeperException.UnimplementedException">
+            @see Code#UNIMPLEMENTED
+        </member>
+        <member name="F:ZooKeeperNet.Packet.clientPath">
+            Client's view of the path (may differ due to chroot) *
+        </member>
+        <member name="F:ZooKeeperNet.Packet.request">
+            Servers's view of the path (may differ due to chroot) *
+        </member>
+        <member name="F:ZooKeeperNet.PathUtils.PathSeparator">
+            <summary>
+            Path Separator string ("/")
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.PathUtils.PathSeparatorChar">
+            <summary>
+            Path Separator char ('/')
+            </summary>
+        </member>
+        <member name="F:ZooKeeperNet.PathUtils.PathSeparatorCharAsArray">
+            <summary>
+            Path Separator char as an array for use in string.Split(delims, StringSplitOptions.*)
+            (and anywhere else this would be handy).
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.PathUtils.ValidatePath(System.String,System.Boolean)">
+            validate the provided znode path string
+            @param path znode path string
+            @param isSequential if the path is being created
+            with a sequential flag
+            @throws IllegalArgumentException if the path is invalid
+        </member>
+        <member name="M:ZooKeeperNet.PathUtils.ValidatePath(System.String)">
+             Validate the provided znode path string
+             @param path znode path string
+             @throws IllegalArgumentException if the path is invalid
+            
+        </member>
+        <member name="F:ZooKeeperNet.Quotas.procZookeeper">
+            the zookeeper nodes that acts as the management and status node *
+        </member>
+        <member name="F:ZooKeeperNet.Quotas.quotaZookeeper">
+            the zookeeper quota node that acts as the quota
+            management node for zookeeper 
+        </member>
+        <member name="F:ZooKeeperNet.Quotas.limitNode">
+            the limit node that has the limit of
+            a subtree
+        </member>
+        <member name="F:ZooKeeperNet.Quotas.statNode">
+            the stat node that monitors the limit of
+            a subtree.
+        </member>
+        <member name="M:ZooKeeperNet.Quotas.QuotaPath(System.String)">
+            return the quota path associated with this
+            prefix
+            @param path the actual path in zookeeper.
+            @return the limit quota path
+        </member>
+        <member name="M:ZooKeeperNet.Quotas.StatPath(System.String)">
+            return the stat quota path associated with this
+            prefix.
+            @param path the actual path in zookeeper
+            @return the stat quota path
+        </member>
+        <member name="T:ZooKeeperNet.RetryHelper">
+            <summary>
+            added
+            由于这些API会抛Zookeeper的Exception，比如ConnectionLossException, 
+            NoNodeException等，所以必须配合一堆try/catch的机制来catch错误，catch后再处理
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.WatchedEvent.Wrapper">
+            Convert WatchedEvent to type that can be sent over network
+        </member>
+        <member name="M:ZooKeeperNet.ZKPaths.FixForNamespace(System.String,System.String)">
+             Apply the namespace to the given path
+            
+             @param namespace namespace (can be null)
+             @param path path
+             @return adjusted path
+        </member>
+        <member name="M:ZooKeeperNet.ZKPaths.GetNodeFromPath(System.String)">
+            Given a full path, return the node name. i.e. "/one/two/three" will return "three"
+            
+            @param path the path
+            @return the node
+        </member>
+        <member name="M:ZooKeeperNet.ZKPaths.GetPathAndNode(System.String)">
+             Given a full path, return the node name and its path. i.e. "/one/two/three" will return {"/one/two", "three"}
+            
+             @param path the path
+             @return the node
+        </member>
+        <member name="M:ZooKeeperNet.ZKPaths.Mkdirs(ZooKeeperNet.ZooKeeper,System.String)">
+             Make sure all the nodes in the path are created. NOTE: Unlike File.mkdirs(), Zookeeper doesn't distinguish
+             between directories and files. So, every node in the path is created. The data for each node is an empty blob
+            
+             @param zookeeper the client
+             @param path      path to ensure
+             @throws InterruptedException thread interruption
+             @throws org.apache.zookeeper.KeeperException
+                                          Zookeeper errors
+        </member>
+        <member name="M:ZooKeeperNet.ZKPaths.Mkdirs(ZooKeeperNet.IZooKeeper,System.String,System.Boolean)">
+             Make sure all the nodes in the path are created. NOTE: Unlike File.mkdirs(), Zookeeper doesn't distinguish
+             between directories and files. So, every node in the path is created. The data for each node is an empty blob
+            
+             @param zookeeper the client
+             @param path      path to ensure
+             @param makeLastNode if true, all nodes are created. If false, only the parent nodes are created
+             @throws InterruptedException thread interruption
+             @throws org.apache.zookeeper.KeeperException
+                                          Zookeeper errors
+        </member>
+        <member name="M:ZooKeeperNet.ZKPaths.GetSortedChildren(ZooKeeperNet.IZooKeeper,System.String)">
+             Return the children of the given path sorted by sequence number
+            
+             @param zookeeper the client
+             @param path      the path
+             @return sorted list of children
+             @throws InterruptedException thread interruption
+             @throws org.apache.zookeeper.KeeperException
+                                          zookeeper errors
+        </member>
+        <member name="M:ZooKeeperNet.ZKPaths.MakePath(System.String,System.String)">
+             Given a parent path and a child node, create a combined full path
+            
+             @param parent the parent
+             @param child  the child
+             @return full path
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.#ctor(System.String,System.TimeSpan,ZooKeeperNet.IWatcher)">
+            <summary>
+            To create a ZooKeeper client object, the application needs to pass a
+            connection string containing a comma separated list of host:port pairs,
+            each corresponding to a ZooKeeper server.
+            
+            Session establishment is asynchronous. This constructor will initiate
+            connection to the server and return immediately - potentially (usually)
+            before the session is fully established. The watcher argument specifies
+            the watcher that will be notified of any changes in state. This
+            notification can come at any point before or after the constructor call
+            has returned.
+            
+            The instantiated ZooKeeper client object will pick an arbitrary server
+            from the connectstring and attempt to connect to it. If establishment of
+            the connection fails, another server in the connect string will be tried
+            (the order is non-deterministic, as we random shuffle the list), until a
+            connection is established. The client will continue attempts until the
+            session is explicitly closed.
+            
+            Added in 3.2.0: An optional "chroot" suffix may also be appended to the
+            connection string. This will run the client commands while interpreting
+            all paths relative to this root (similar to the unix chroot command).
+            </summary>
+            <param name="connectstring">
+                       comma separated host:port pairs, each corresponding to a zk
+                       server. e.g. "127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002" If
+                       the optional chroot suffix is used the example would look
+                       like: "127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002/app/a"
+                       where the client would be rooted at "/app/a" and all paths
+                       would be relative to this root - ie getting/setting/etc...
+                       "/foo/bar" would result in operations being run on
+                       "/app/a/foo/bar" (from the server perspective).
+            </param>
+            <param name="sessionTimeout">The session timeout.</param>
+            <param name="watcher">
+                       a watcher object which will be notified of state changes, may
+                       also be notified for node events
+            </param>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.AddAuthInfo(System.String,System.Byte[])">
+             <summary>
+             Add the specified scheme:auth information to this connection.
+            
+             This method is NOT thread safe
+             </summary>
+             <param name="scheme">The scheme.</param>
+             <param name="auth">The auth.</param>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.Register(ZooKeeperNet.IWatcher)">
+            <summary>
+            Specify the default watcher for the connection (overrides the one
+            specified during construction).
+            </summary>
+            <param name="watcher">The watcher.</param>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.WaitUntilConnected(ZooKeeperNet.ZooKeeper)">
+            <summary>
+            added:
+            等到异步连接成功（最多等5次）
+            </summary>
+            <param name="zk"></param>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.InternalDispose">
+            <summary>
+            Close this client object. Once the client is closed, its session becomes
+            invalid. All the ephemeral nodes in the ZooKeeper server associated with
+            the session will be removed. The watches left on those nodes (and on
+            their parents) will be triggered.
+            </summary>   
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.PrependChroot(System.String)">
+            <summary>
+            Prepend the chroot to the client path (if present). The expectation of
+            this function is that the client path has been validated before this
+            function is called
+            </summary>
+            <param name="clientPath">The path to the node.</param>
+            <returns>server view of the path (chroot prepended to client path)</returns>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.Create(System.String,System.Byte[],System.Collections.Generic.IEnumerable{Org.Apache.Zookeeper.Data.ACL},ZooKeeperNet.CreateMode)">
+            <summary>
+            Create a node with the given path. The node data will be the given data,
+            and node acl will be the given acl.
+            
+            The flags argument specifies whether the created node will be ephemeral
+            or not.
+            
+            An ephemeral node will be removed by the ZooKeeper automatically when the
+            session associated with the creation of the node expires.
+            
+            The flags argument can also specify to create a sequential node. The
+            actual path name of a sequential node will be the given path plus a
+            suffix "i" where i is the current sequential number of the node. The sequence
+            number is always fixed length of 10 digits, 0 padded. Once
+            such a node is created, the sequential number will be incremented by one.
+            
+            If a node with the same actual path already exists in the ZooKeeper, a
+            KeeperException with error code KeeperException.NodeExists will be
+            thrown. Note that since a different actual path is used for each
+            invocation of creating sequential node with the same path argument, the
+            call will never throw "file exists" KeeperException.
+            
+            If the parent node does not exist in the ZooKeeper, a KeeperException
+            with error code KeeperException.NoNode will be thrown.
+            
+            An ephemeral node cannot have children. If the parent node of the given
+            path is ephemeral, a KeeperException with error code
+            KeeperException.NoChildrenForEphemerals will be thrown.
+            
+            This operation, if successful, will trigger all the watches left on the
+            node of the given path by exists and getData API calls, and the watches
+            left on the parent node by getChildren API calls.
+            
+            If a node is created successfully, the ZooKeeper server will trigger the
+            watches on the path left by exists calls, and the watches on the parent
+            of the node by getChildren calls.
+            
+            The maximum allowable size of the data array is 1 MB (1,048,576 bytes).
+            Arrays larger than this will cause a KeeperExecption to be thrown.
+            </summary>
+            <param name="path">The path for the node.</param>
+            <param name="data">The data for the node.</param>
+            <param name="acl">The acl for the node.</param>
+            <param name="createMode">specifying whether the node to be created is ephemeral and/or sequential.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.Delete(System.String,System.Int32)">
+             <summary>
+             Delete the node with the given path. The call will succeed if such a node
+             exists, and the given version matches the node's version (if the given
+             version is -1, it matches any node's versions).
+            
+             A KeeperException with error code KeeperException.NoNode will be thrown
+             if the nodes does not exist.
+            
+             A KeeperException with error code KeeperException.BadVersion will be
+             thrown if the given version does not match the node's version.
+            
+             A KeeperException with error code KeeperException.NotEmpty will be thrown
+             if the node has children.
+             
+             This operation, if successful, will trigger all the watches on the node
+             of the given path left by exists API calls, and the watches on the parent
+             node left by getChildren API calls.
+             </summary>
+             <param name="path">The path.</param>
+             <param name="version">The version.</param>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.Exists(System.String,ZooKeeperNet.IWatcher)">
+            <summary>
+            Return the stat of the node of the given path. Return null if no such a
+            node exists.
+            
+            If the watch is non-null and the call is successful (no exception is thrown),
+            a watch will be left on the node with the given path. The watch will be
+            triggered by a successful operation that creates/delete the node or sets
+            the data on the node.
+            </summary>
+            <param name="path">The path.</param>
+            <param name="watcher">The watcher.</param>
+            <returns>the stat of the node of the given path; return null if no such a node exists.</returns>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.Exists(System.String,System.Boolean)">
+            <summary>
+            Return the stat of the node of the given path. Return null if no such a
+            node exists.
+            
+            If the watch is true and the call is successful (no exception is thrown),
+            a watch will be left on the node with the given path. The watch will be
+            triggered by a successful operation that creates/delete the node or sets
+            the data on the node.
+            @param path
+                           the node path
+            @param watch
+                           whether need to watch this node
+            @return the stat of the node of the given path; return null if no such a
+                    node exists.
+            @throws KeeperException If the server signals an error
+            @throws InterruptedException If the server transaction is interrupted.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.GetData(System.String,ZooKeeperNet.IWatcher,Org.Apache.Zookeeper.Data.Stat)">
+            <summary>
+            Return the data and the stat of the node of the given path.
+            
+            If the watch is non-null and the call is successful (no exception is
+            thrown), a watch will be left on the node with the given path. The watch
+            will be triggered by a successful operation that sets data on the node, or
+            deletes the node.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            @param path the given path
+            @param watcher explicit watcher
+            @param stat the stat of the node
+            @return the data of the node
+            @throws KeeperException If the server signals an error with a non-zero error code
+            @throws InterruptedException If the server transaction is interrupted.
+            @throws IllegalArgumentException if an invalid path is specified
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.GetData(System.String,System.Boolean,Org.Apache.Zookeeper.Data.Stat)">
+            <summary>
+            Return the data and the stat of the node of the given path.
+            
+            If the watch is true and the call is successful (no exception is
+            thrown), a watch will be left on the node with the given path. The watch
+            will be triggered by a successful operation that sets data on the node, or
+            deletes the node.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            @param path the given path
+            @param watch whether need to watch this node
+            @param stat the stat of the node
+            @return the data of the node
+            @throws KeeperException If the server signals an error with a non-zero error code
+            @throws InterruptedException If the server transaction is interrupted.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.SetData(System.String,System.Byte[],System.Int32)">
+             <summary>
+             Set the data for the node of the given path if such a node exists and the
+             given version matches the version of the node (if the given version is
+             -1, it matches any node's versions). Return the stat of the node.
+             
+             This operation, if successful, will trigger all the watches on the node
+             of the given path left by getData calls.
+             
+             A KeeperException with error code KeeperException.NoNode will be thrown
+             if no node with the given path exists.
+             
+             A KeeperException with error code KeeperException.BadVersion will be
+             thrown if the given version does not match the node's version.
+            
+             The maximum allowable size of the data array is 1 MB (1,048,576 bytes).
+             Arrays larger than this will cause a KeeperExecption to be thrown.
+             @param path
+                            the path of the node
+             @param data
+                            the data to set
+             @param version
+                            the expected matching version
+             @return the state of the node
+             @throws InterruptedException If the server transaction is interrupted.
+             @throws KeeperException If the server signals an error with a non-zero error code.
+             @throws IllegalArgumentException if an invalid path is specified
+             </summary>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.GetACL(System.String,Org.Apache.Zookeeper.Data.Stat)">
+            <summary>
+            Return the ACL and stat of the node of the given path.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            @param path
+                           the given path for the node
+            @param stat
+                           the stat of the node will be copied to this parameter.
+            @return the ACL array of the given node.
+            @throws InterruptedException If the server transaction is interrupted.
+            @throws KeeperException If the server signals an error with a non-zero error code.
+            @throws IllegalArgumentException if an invalid path is specified
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.SetACL(System.String,System.Collections.Generic.IEnumerable{Org.Apache.Zookeeper.Data.ACL},System.Int32)">
+            <summary>
+            Set the ACL for the node of the given path if such a node exists and the
+            given version matches the version of the node. Return the stat of the
+            node.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            
+            A KeeperException with error code KeeperException.BadVersion will be
+            thrown if the given version does not match the node's version.
+            @param path
+            @param acl
+            @param version
+            @return the stat of the node.
+            @throws InterruptedException If the server transaction is interrupted.
+            @throws KeeperException If the server signals an error with a non-zero error code.
+            @throws org.apache.zookeeper.KeeperException.InvalidACLException If the acl is invalide.
+            @throws IllegalArgumentException if an invalid path is specified
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.GetChildren(System.String,ZooKeeperNet.IWatcher)">
+            <summary>
+            Return the list of the children of the node of the given path.
+            
+            If the watch is non-null and the call is successful (no exception is thrown),
+            a watch will be left on the node with the given path. The watch willbe
+            triggered by a successful operation that deletes the node of the given
+            path or creates/delete a child under the node.
+            
+            The list of children returned is not sorted and no guarantee is provided
+            as to its natural or lexical order.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            @param path
+            @param watcher explicit watcher
+            @return an unordered array of children of the node with the given path
+            @throws InterruptedException If the server transaction is interrupted.
+            @throws KeeperException If the server signals an error with a non-zero error code.
+            @throws IllegalArgumentException if an invalid path is specified
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.GetChildren(System.String,ZooKeeperNet.IWatcher,Org.Apache.Zookeeper.Data.Stat)">
+            <summary>
+            For the given znode path return the stat and children list.
+            
+            If the watch is non-null and the call is successful (no exception is thrown),
+            a watch will be left on the node with the given path. The watch willbe
+            triggered by a successful operation that deletes the node of the given
+            path or creates/delete a child under the node.
+            
+            The list of children returned is not sorted and no guarantee is provided
+            as to its natural or lexical order.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            @since 3.3.0
+            
+            @param path
+            @param watcher explicit watcher
+            @param stat stat of the znode designated by path
+            @return an unordered array of children of the node with the given path
+            @throws InterruptedException If the server transaction is interrupted.
+            @throws KeeperException If the server signals an error with a non-zero error code.
+            @throws IllegalArgumentException if an invalid path is specified
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.GetChildren(System.String,System.Boolean,Org.Apache.Zookeeper.Data.Stat)">
+            <summary>
+            For the given znode path return the stat and children list.
+            
+            If the watch is true and the call is successful (no exception is thrown),
+            a watch will be left on the node with the given path. The watch willbe
+            triggered by a successful operation that deletes the node of the given
+            path or creates/delete a child under the node.
+            
+            The list of children returned is not sorted and no guarantee is provided
+            as to its natural or lexical order.
+            
+            A KeeperException with error code KeeperException.NoNode will be thrown
+            if no node with the given path exists.
+            @since 3.3.0
+            
+            @param path
+            @param watch
+            @param stat stat of the znode designated by path
+            @return an unordered array of children of the node with the given path
+            @throws InterruptedException If the server transaction is interrupted.
+            @throws KeeperException If the server signals an error with a non-zero
+             error code.
+            </summary>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.ToString">
+            <summary>
+            string representation of this ZooKeeper client. Suitable for things
+            like logging.
+            
+            Do NOT count on the format of this string, it may change without
+            warning.
+            
+            @since 3.3.0
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.ZooKeeper.Id">
+            <summary>
+            Unique ID representing the instance of the client
+            </summary>
+        </member>
+        <member name="P:ZooKeeperNet.ZooKeeper.SessionId">
+            <summary>
+            The session id for this ZooKeeper client instance. The value returned is
+            not valid until the client connects to a server and may change after a
+            re-connect.
+            </summary>
+            <value>The session id.</value>
+        </member>
+        <member name="P:ZooKeeperNet.ZooKeeper.SesionPassword">
+             <summary>
+             The session password for this ZooKeeper client instance. The value
+             returned is not valid until the client connects to a server and may
+              change after a re-connect.
+            
+             This method is NOT thread safe
+             </summary>
+             <value>The sesion password.</value>
+        </member>
+        <member name="P:ZooKeeperNet.ZooKeeper.SessionTimeout">
+            <summary>
+            The negotiated session timeout for this ZooKeeper client instance. The
+            value returned is not valid until the client connects to a server and
+            may change after a re-connect.
+            
+            This method is NOT thread safe
+            </summary>
+            <value>The session timeout.</value>
+        </member>
+        <member name="P:ZooKeeperNet.ZooKeeper.State">
+            <summary>
+            The State of ZooKeeper connection
+            Thread safe
+            </summary>
+        </member>
+        <!-- 对于成员“T:ZooKeeperNet.ZooKeeper.WatchRegistration”忽略有格式错误的 XML 注释 -->
+        <member name="M:ZooKeeperNet.ZooKeeper.WatchRegistration.#ctor(ZooKeeperNet.IWatcher,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ZooKeeperNet.ZooKeeper.WatchRegistration"/> class.
+            </summary>
+            <param name="watcher">The watcher.</param>
+            <param name="clientPath">The client path.</param>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.WatchRegistration.Register(System.Int32)">
+            <summary>
+            Register the watcher with the set of watches on path.
+            </summary>
+            <param name="rc">the result code of the operation that attempted to add the watch on the path.</param>
+        </member>
+        <member name="M:ZooKeeperNet.ZooKeeper.WatchRegistration.ShouldAddWatch(System.Int32)">
+            <summary>
+            Determine whether the watch should be added based on return code.
+            </summary>
+            <param name="rc">the result code of the operation that attempted to add the watch on the node</param>
+            <returns>true if the watch should be added, otw false</returns>
+        </member>
+        <member name="T:ZooKeeperNet.ZooKeeper.ExistsWatchRegistration">
+            <summary>
+            Handle the special case of exists watches - they add a watcher
+            even in the case where NONODE result code is returned.
+            </summary>
+        </member>
+    </members>
+</doc>
