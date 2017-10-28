@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReferenceDll", "ReferenceDl
 	ProjectSection(SolutionItems) = preProject
 		ReferenceDll\log4net.dll = ReferenceDll\log4net.dll
 		ReferenceDll\log4net.xml = ReferenceDll\log4net.xml
+		ReferenceDll\Readme.txt = ReferenceDll\Readme.txt
 		ReferenceDll\ZooKeeperNet.dll = ReferenceDll\ZooKeeperNet.dll
 		ReferenceDll\ZooKeeperNet.XML = ReferenceDll\ZooKeeperNet.XML
 	EndProjectSection
